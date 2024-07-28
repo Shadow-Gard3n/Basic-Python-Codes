@@ -1,62 +1,142 @@
-def main(): 
 
-    a = input("What do you want for your pattern: ")
-    z = int(input("Select the number 1 for trianglular pattern, 2 for rectangular pattern and 3 for diamond pattern: "))
-    if z ==2 or z == 1:
-        n = int(input("How many lines of pattern do you want the pattern: "))
-    if z == 3:
-        n = int(input("How many lines of pattern do you want the pattern(❗❗Please enter only odd number as it is diamond❗❗): "))
-        if n%2 == 0:
-            print(" ❌❌Wrong input,please try again❌❌ ")
-            
-            main()
+def your_choice():
+    print("So will you choose stone, paper or scissors?")
+    b = int(input("Press '1' for stone and '2' for paper and '3' for scissors: "))
+    if b == 1:
+        yourchoice = "Stone"
+    elif b == 2:
+        yourchoice = "Paper"
+    elif b == 3:
+        yourchoice = "Scissors"
+    else:
+        print("Wrong input, please try again")
+        your_choice()
+    return yourchoice
+    
+def computer_choice(): 
+    import random
+    c = random.randint(1,3)
+    if c == 1:
+            computerchoice = "Stone"
+    elif c == 2: 
+        computerchoice = "Paper"
+    elif c == 3:
+        computerchoice = "Scissors"
+    else:
+        pass
+    return computerchoice
+
+
+
+
+def game():
+    yourchoice = your_choice()
+    computerchoice = computer_choice()
+    
+    
+    if yourchoice == "Stone":
+        if computerchoice == "Stone":
+            winner = "none"
+            print("!!A TIE!!")
+        elif computerchoice == "Paper":
+            winner = "computer"
+            print("!!YOU LOSE!!")
+        elif computerchoice == "Scissors":
+            winner = "you"
+            print("!!YOU WIN!!")
+
+    elif yourchoice == "Paper":
+        if computerchoice == "Paper":
+            print("!!A TIE!!")
+            winner = "none"
+        elif computerchoice == "Scissors":
+            winner = "computer"
+            print("!!YOU LOSE!!")
+        elif computerchoice == "Stone":
+            winner = "you"
+            print("!!YOU WIN!!")
+       
+    elif yourchoice == "Scissors":
+        if computerchoice == "Scissors":
+            winner = "none"
+            print("!!A TIE!!")
+        elif computerchoice == "Stone":
+            winner = "computer"
+            print("!!YOU LOSE!!")
+        elif computerchoice == "Paper":
+            winner = "you"
+            print("!!YOU WIN!!")
+        
+    print("Your choice: ",yourchoice)
+    print("Computer choice: ",computerchoice)
+    return winner
+
+
+def loop():
+
+    print("!!!Try to win 5 times in lesser round!!!")
+
+    def main():
+
+        victory = 0
+        not_victory = 0
+        while victory < 5:
+
+
+            winner = game()
+
+            if winner == "you":
+                victory = victory + 1
+                print("ROUND: ", victory + not_victory)
+                print("VICTORY: ",victory)
+            else:
+                not_victory = not_victory + 1
+                print("ROUND: ", victory + not_victory)
+                print("VICTORY: ",victory)
+
+        if victory == 5:
+            x = 105 - (victory + not_victory)
+            print("Your score is", x)
         else:
             pass
+        return x        
 
-    m = n
-    if z == 1:
-        for b in range(1,n*2,2):
-            print(" "*int((n-b/2-1/2)),a*b)
+    x = main()
 
-    elif z == 2 and n>=4:
-        print(a*n)
-        d=1
-        for d in range(2,n):
-            print(a," "*(n-4),a)
-            d +=1
-        print(a*n)
-    elif z == 2 and n == 3:
-        print(a*n)
-        print(a, a)
-        print(a*n)
-    elif z == 2 and n == 2:
-        print(a*n)
-        print(a*n)
-    elif z == 2 and n == 1:
-        print(a)
-        
+    with open("highscore.txt", "r") as h:
+        n = h.read()
+
+    if x > int(n):
+        with open("highscore.txt","w") as h:
+            h.write(str(x))
+        print("!!! NEW HIGH SCORE !!!")
+    else:
+        pass
+
+
+    def end():
+        y = int(input("Press 1 for retry and 2 to end this and 3 to view the high score: "))
+        if y == 1:
+            loop()
+        elif y == 2:
+            exit()
+        elif y == 3:
+            with open("highscore.txt") as h:
+                g = h.read()
+                print(g)
+            end()
+        else:
+            print("Wrong input, so retry")
+            end()
+    end()
+
+loop()
     
-    
-    elif z == 3:
-        for f in range(1,n+1,2):
-            print(" "*int((n-f)/2),a*f)
-        while n>=1:
-            n = n-2
-            print(" "*int((m-n)/2),n*a)
-main()
-t = input("Press 1 if you want to retry and 2 if you want to end this: ")
-if t == '1':
-    main()
-elif t == '2':
-    exit()
-else:
-    print("❗❗Wrong choice so ending the program❗❗")
-    exit()
-
 
         
 
-    
-    
-    
+        
+        
+
+            
 
